@@ -1,5 +1,3 @@
-// Write your Pizza Builder JavaScript in this file.
-
 let buttons = [
 	{ selector: '.btn-pepperonni', item: '.pep', className: null, text: 'pepperonni', price: 1 },
 	{ selector: '.btn-mushrooms', item: '.mushroom', className: null, text: 'mushrooms', price: 1 },
@@ -33,19 +31,13 @@ $(function(){
 	function updatePrice() {
 		var price = 10;
 
-		$('.price ul li').each(function(){
-			var $that = $(this);
+		$('.price ul li').hide();
 
-			$.each(buttons, function(index, button){
-				if($that.text().includes(button.text)) {
-					$that.hide();
-
-					if($(button.selector).hasClass('active')) {
-						$that.show();
-						price += button.price;
-					}
-				}
-			});
+		$.each(buttons, function(index, button){
+			if($(button.selector).hasClass('active')) {
+				$('.price ul li:contains(' + button.text + ')').show();
+				price += button.price;
+			}
 		});
 
 		$('.price strong').text('$' + price);
