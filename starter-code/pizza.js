@@ -9,8 +9,7 @@ let buttons = [
 $(function(){
 	$('.btn-crust, .btn-sauce').removeClass('active');
 
-	$('.crust').removeClass('crust-gluten-free');
-	$('.sauce').removeClass('sauce-white');
+	$('.crust, .sauce').removeClass('crust-gluten-free sauce-white');
 
 	$.each(buttons, function(index, button){
 		$(button.selector).click(function(e){
