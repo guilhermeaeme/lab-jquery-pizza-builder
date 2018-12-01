@@ -6,16 +6,20 @@ let buttons = [
 	{ selector: '.btn-crust', item: '.crust', className: 'crust-gluten-free', text: 'gluten-free', price: 5 }
 ];
 
+let price = 13;
+
 $(function(){
 	$('.btn-crust, .btn-sauce').removeClass('active');
-
 	$('.crust, .sauce').removeClass('crust-gluten-free sauce-white');
+	$('.price ul li:contains(sauce), .price ul li:contains(gluten-free)').toggle();
+	$('.price strong').text('$' + price);
 
 	$.each(buttons, function(index, button){
 		$(button.selector).click(function(e){
 			e.preventDefault();
 
 			$(this).toggleClass('active');
+			$('.price ul li:contains(' + button.text + ')').toggle();
 
 			if(button.className) {
 				$(button.item).toggleClass(button.className);
@@ -23,24 +27,13 @@ $(function(){
 				$(button.item).toggle();
 			}
 
-			updatePrice();
+			if($(this).hasClass('active')) {
+				price += button.price;
+			} else {
+				price -= button.price;
+			}
+
+			$('.price strong').text('$' + price);
 		});
 	});
-
-	function updatePrice() {
-		var price = 10;
-
-		$('.price ul li').hide();
-
-		$.each(buttons, function(index, button){
-			if($(button.selector).hasClass('active')) {
-				$('.price ul li:contains(' + button.text + ')').show();
-				price += button.price;
-			}
-		});
-
-		$('.price strong').text('$' + price);
-	}
-
-	updatePrice();
 });
